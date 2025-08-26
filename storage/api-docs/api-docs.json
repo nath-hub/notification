@@ -1,0 +1,857 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Webhook Laravel",
+        "description": "API pour la gestion et l'envoi de webhooks",
+        "contact": {
+            "name": "API Support",
+            "email": "admin@example.com"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/webhooks": {
+            "get": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Lister tous les webhooks",
+                "operationId": "22a77232c8ceff5e52663eb3a7e79c71",
+                "responses": {
+                    "200": {
+                        "description": "Liste des webhooks récupérée avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Webhook"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Créer un nouveau webhook",
+                "operationId": "d64ab8b75ec5b872c36af31bb11f5fc3",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreWebhookRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Webhook créé avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Webhook"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Données invalides",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "url": [
+                                                    "The url field is required."
+                                                ],
+                                                "event_type": [
+                                                    "The event type field is required."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        },
+                                        "errors": {
+                                            "type": "object",
+                                            "example": {
+                                                "url": [
+                                                    "The url must be a valid URL."
+                                                ],
+                                                "secret": [
+                                                    "The secret must be at least 16 characters."
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/webhooks/{id}": {
+            "get": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Afficher un webhook spécifique",
+                "operationId": "6b02aeaf8e5d95bc6a5447f0e9679f09",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du webhook",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Webhook récupéré avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Webhook"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Webhook non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Mettre à jour un webhook",
+                "operationId": "cba8c4140c6900d6c00ff7b30e8ff3f6",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du webhook",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateWebhookRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Webhook mis à jour avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Webhook"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Données invalides",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Webhook non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Erreur de validation",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The given data was invalid."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Supprimer un webhook",
+                "operationId": "22e7aa92a4ba361b2720960535ed40a8",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du webhook",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Webhook supprimé avec succès"
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Webhook non trouvé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook not found"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/webhooks/trigger/{eventType}": {
+            "post": {
+                "tags": [
+                    "Webhooks"
+                ],
+                "summary": "Déclencher un webhook",
+                "operationId": "58247496226ec66269aee1920883a1f7",
+                "parameters": [
+                    {
+                        "name": "eventType",
+                        "in": "path",
+                        "description": "Type d'événement à déclencher",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "example": "user.created"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Webhook déclenché avec succès",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Webhook dispatched"
+                                        },
+                                        "event_type": {
+                                            "type": "string",
+                                            "example": "user.created"
+                                        },
+                                        "payload": {
+                                            "type": "object",
+                                            "example": {
+                                                "event": "user.created",
+                                                "timestamp": "2023-12-07T10:30:00.000000Z",
+                                                "data": {
+                                                    "message": "Webhook triggered successfully",
+                                                    "id": "655f7a8b1a2b3"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Type d'événement invalide",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Invalid event type"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Non authentifié",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Unauthenticated"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Accès non autorisé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Forbidden"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Aucun webhook trouvé pour cet événement",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No webhooks found for this event type"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Erreur serveur interne",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Internal Server Error"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Webhook": {
+                "title": "Webhook",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "example": "550e8400-e29b-41d4-a716-446655440000"
+                    },
+                    "url": {
+                        "type": "string",
+                        "example": "https://example.com/webhook"
+                    },
+                    "event_type": {
+                        "type": "string",
+                        "example": "user.created"
+                    },
+                    "secret": {
+                        "type": "string",
+                        "example": "super-secret-key-123"
+                    },
+                    "is_active": {
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "max_attempts": {
+                        "type": "integer",
+                        "example": 3
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-12-07T10:30:00.000000Z"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time",
+                        "example": "2023-12-07T10:30:00.000000Z"
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateWebhookRequest": {
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://example.com/webhook/receive"
+                    },
+                    "event_type": {
+                        "description": "Type d'événement pour le webhook",
+                        "type": "string",
+                        "example": "user.updated"
+                    },
+                    "secret": {
+                        "description": "Clé secrète pour signer les webhooks",
+                        "type": "string",
+                        "example": "new-super-secret-key-123456"
+                    },
+                    "is_active": {
+                        "description": "Statut actif/inactif du webhook",
+                        "type": "boolean",
+                        "example": false
+                    },
+                    "max_attempts": {
+                        "description": "Nombre maximum de tentatives d'envoi",
+                        "type": "integer",
+                        "example": 5
+                    }
+                },
+                "type": "object"
+            },
+            "Error400": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Bad Request"
+                    },
+                    "errors": {
+                        "type": "object",
+                        "example": {
+                            "field": [
+                                "Error message"
+                            ]
+                        }
+                    }
+                },
+                "type": "object"
+            },
+            "Error401": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Unauthenticated"
+                    }
+                },
+                "type": "object"
+            },
+            "Error403": {
+                "properties": {
+                    "message": {
+                        "type": "string",
+                        "example": "Forbidden"
+                    }
+                },
+                "type": "object"
+            },
+            "StoreWebhookRequest": {
+                "required": [
+                    "url",
+                    "event_type",
+                    "secret"
+                ],
+                "properties": {
+                    "url": {
+                        "type": "string",
+                        "format": "uri",
+                        "example": "https://example.com/webhook/receive"
+                    },
+                    "event_type": {
+                        "description": "Type d'événement pour le webhook",
+                        "type": "string",
+                        "example": "user.created"
+                    },
+                    "secret": {
+                        "description": "Clé secrète pour signer les webhooks (min 16 caractères)",
+                        "type": "string",
+                        "example": "super-secret-key-123456"
+                    },
+                    "is_active": {
+                        "description": "Statut actif/inactif du webhook",
+                        "type": "boolean",
+                        "example": true
+                    },
+                    "max_attempts": {
+                        "description": "Nombre maximum de tentatives d'envoi",
+                        "type": "integer",
+                        "example": 3
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Webhooks",
+            "description": "Endpoints pour la gestion des webhooks"
+        }
+    ]
+}
