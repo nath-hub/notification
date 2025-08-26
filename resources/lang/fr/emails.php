@@ -155,5 +155,96 @@ return [
         'billing_address' => 'Adresse de facturation',
         'thank_you' => 'Merci pour votre achat !',
         'footer' => 'Conservez ce reçu pour vos archives. Ce document fait foi de transaction.'
+    ],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     'welcomes' => [
+        'subject' => 'Bienvenue sur :name - Votre compte marchand est créé',
+        'greeting' => 'Bienvenue :name,',
+        'message' => 'Félicitations ! Votre compte marchand :business a été créé avec succès sur notre plateforme de paiement.',
+        'next_steps' => 'Prochaines étapes pour activer votre compte :',
+        'step1' => 'Complétez votre profil marchand',
+        'step2' => 'Soumettez vos documents KYC/AML',
+        'step3' => 'Configurez vos webhooks de notification',
+        'step4' => 'Intégrez notre API à votre système',
+        'account_info' => 'Informations de votre compte',
+        'business_name' => 'Nom de l\'entreprise',
+        'contact_email' => 'Email de contact',
+        'merchant_id' => 'ID Marchand',
+        'support_contact' => 'Notre équipe support est disponible pour vous aider dans votre intégration.',
+        'footer' => 'Bienvenue dans notre réseau de marchands !'
+    ],
+
+    'kyc_validation' => [
+        'greeting' => 'Cher :name,',
+        'details' => 'Détails de la validation :',
+        'business_name' => 'Entreprise',
+        'reference_id' => 'Référence KYC',
+        'status_date' => 'Date du statut',
+        'contact' => 'Pour toute question concernant votre validation KYC, contactez notre équipe compliance.',
+        'footer' => 'Service Compliance - :year'
+    ],
+
+    'kyc_approved' => [
+        'subject' => '✅ Validation KYC Approuvée',
+        'message' => 'Vos documents KYC ont été approuvés avec succès.',
+        'next_steps' => 'Votre compte est maintenant éligible pour traiter des paiements.'
+    ],
+
+    'kyc_rejected' => [
+        'subject' => '❌ Validation KYC Rejetée',
+        'message' => 'Vos documents KYC nécessitent des corrections.',
+        'reason' => 'Raison du rejet',
+        'default_reason' => 'Documents incomplets ou non conformes',
+        'instructions' => 'Veuillez soumettre à nouveau vos documents avec les corrections nécessaires.'
+    ],
+
+    'account_status' => [
+        'greeting' => 'Cher :name,',
+        'account_info' => 'Informations du compte',
+        'merchant_id' => 'ID Marchand',
+        'business_name' => 'Nom de l\'entreprise',
+        'status' => 'Statut',
+        'approved' => 'Approuvé',
+        'rejected' => 'Rejeté',
+        'contact' => 'Notre équipe commerciale reste à votre disposition pour toute question.',
+        'footer' => 'Service Onboarding Marchand'
+    ],
+
+    'account_approved' => [
+        'subject' => '🎉 Votre compte marchand est approuvé !',
+        'message' => 'Félicitations ! Votre compte marchand :business a été approuvé avec succès.',
+        'activation_details' => 'Votre compte est maintenant activé et vous pouvez commencer à accepter des paiements.',
+        'features' => 'Fonctionnalités activées :',
+        'feature1' => 'Acceptation des paiements en ligne',
+        'feature2' => 'Accès à l\'API complète',
+        'feature3' => 'Tableau de bord analytique',
+        'feature4' => 'Support technique prioritaire'
+    ],
+
+    'account_rejected' => [
+        'subject' => '❌ Compte marchand non approuvé',
+        'message' => 'Votre demande de compte marchand n\'a pas été approuvée.',
+        'reason' => 'Raison du rejet',
+        'default_reason' => 'Critères d\'éligibilité non satisfaits',
+        'appeal_process' => 'Si vous pensez qu\'il s\'agit d\'une erreur, vous pouvez faire appel de cette décision.'
     ]
 ];

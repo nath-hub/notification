@@ -132,5 +132,77 @@ return [
         'billing_address' => 'Billing Address',
         'thank_you' => 'Thank you for your purchase!',
         'footer' => 'Keep this receipt for your records. This document serves as proof of transaction.'
+    ],
+
+    'welcomes' => [
+        'subject' => 'Welcome to :name - Your Merchant Account is Created',
+        'greeting' => 'Welcome :name,',
+        'message' => 'Congratulations! Your merchant account :business has been successfully created on our payment platform.',
+        'next_steps' => 'Next steps to activate your account:',
+        'step1' => 'Complete your merchant profile',
+        'step2' => 'Submit your KYC/AML documents',
+        'step3' => 'Configure your notification webhooks',
+        'step4' => 'Integrate our API into your system',
+        'account_info' => 'Your Account Information',
+        'business_name' => 'Business Name',
+        'contact_email' => 'Contact Email',
+        'merchant_id' => 'Merchant ID',
+        'support_contact' => 'Our support team is available to help you with your integration.',
+        'footer' => 'Welcome to our network of merchants!'
+    ],
+
+    'kyc_validation' => [
+        'greeting' => 'Dear :name,',
+        'details' => 'Validation Details:',
+        'business_name' => 'Company',
+        'reference_id' => 'KYC Reference',
+        'status_date' => 'Status Date',
+        'contact' => 'For any questions regarding your KYC validation, please contact our compliance team.',
+        'footer' => 'Compliance Department - :year'
+    ],
+
+    'kyc_approved' => [
+        'subject' => '✅ KYC Validation Approved',
+        'message' => 'Your KYC documents have been successfully approved.',
+        'next_steps' => 'Your account is now eligible to process payments.'
+    ],
+
+    'kyc_rejected' => [
+        'subject' => '❌ KYC Validation Rejected',
+        'message' => 'Your KYC documents require corrections.',
+        'reason' => 'Reason for rejection',
+        'default_reason' => 'Incomplete or non-compliant documents',
+        'instructions' => 'Please resubmit your documents with the necessary corrections.'
+    ],
+
+    'account_status' => [
+        'greeting' => 'Dear :name,',
+        'account_info' => 'Account Information',
+        'merchant_id' => 'Merchant ID',
+        'business_name' => 'Business Name',
+        'status' => 'Status',
+        'approved' => 'Approved',
+        'rejected' => 'Rejected',
+        'contact' => 'Our sales team remains available for any questions.',
+        'footer' => 'Merchant Onboarding Service'
+    ],
+
+    'account_approved' => [
+        'subject' => '🎉 Your Merchant Account is Approved!',
+        'message' => 'Congratulations! Your merchant account :business has been successfully approved.',
+        'activation_details' => 'Your account is now active and you can start accepting payments.',
+        'features' => 'Activated features:',
+        'feature1' => 'Acceptance of online payments',
+        'feature2' => 'Full API access',
+        'feature3' => 'Analytical dashboard',
+        'feature4' => 'Priority technical support'
+    ],
+
+    'account_rejected' => [
+        'subject' => '❌ Merchant Account Not Approved',
+        'message' => 'Your merchant account application has not been approved.',
+        'reason' => 'Reason for rejection',
+        'default_reason' => 'Eligibility criteria not met',
+        'appeal_process' => 'If you believe this is an error, you can appeal this decision.'
     ]
 ];
