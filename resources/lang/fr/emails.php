@@ -47,7 +47,6 @@ return [
         'step3' => 'Entrez le code et votre nouveau mot de passe',
         'reset_button' => 'Réinitialiser mon mot de passe',
         'expiration' => 'Ce code expirera dans 30 minutes pour des raisons de sécurité.',
-        'alternative' => 'Si vous préférez utiliser un lien direct, cliquez sur le bouton ci-dessus.',
         'support_text' => 'Si vous rencontrez des problèmes ou n\'avez pas demandé cette réinitialisation, veuillez contacter immédiatement notre support technique.',
         'footer' => 'Sécurité de votre compte - © ' . date('Y') . ' ' . config('app.name') . '. Tous droits réservés.',
         'automated_message' => 'Cet email a été envoyé automatiquement, merci de ne pas y répondre.'
@@ -58,7 +57,9 @@ return [
         'greeting' => 'Bonjour :name,',
         'message' => 'Votre mot de passe a été modifié avec succès le :date à :time.',
         'security_message' => 'Si vous n\'êtes pas à l\'origine de cette modification, veuillez contacter immédiatement notre support.',
-        'footer' => 'Protection de votre compte'
+        'footer' => 'Protection de votre compte',
+        'automated_message' => 'Cet email a été envoyé automatiquement, merci de ne pas y répondre.'
+
     ],
 
      'account_verified' => [
@@ -74,7 +75,9 @@ return [
         'security_title' => 'Sécurité du compte',
         'security_message' => 'Votre compte est maintenant sécurisé et vérifié. Si vous remarquez une activité suspecte, veuillez contacter immédiatement notre support.',
         'thank_you' => 'Merci de nous avoir choisi ! Nous sommes ravis de vous compter parmi nos membres.',
-        'footer' => '© :year ' . config('app.name') . ' - Tous droits réservés. | Protection de vos données'
+        'footer' => '© :year ' . config('app.name') . ' - Tous droits réservés. | Protection de vos données',
+        'automated_message' => 'Cet email a été envoyé automatiquement, merci de ne pas y répondre.'
+
     ],
 
       'success' => [
@@ -87,7 +90,9 @@ return [
         'date' => 'Date',
         'method' => 'Méthode de paiement',
         'thank_you' => 'Merci pour votre confiance.',
-        'footer' => 'Cet email confirme votre transaction.'
+        'footer' => 'Cet email confirme votre transaction.',
+        'automated_message' => 'Cet email a été envoyé automatiquement, merci de ne pas y répondre.'
+
     ],
 
     'failed' => [

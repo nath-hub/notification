@@ -34,15 +34,20 @@ Route::post('/webhook/receive', [WebhookController::class, 'receiveWebhook'])
 
 Route::post('/notifications/welcome', [NotificationController::class, 'sendWelcomeEmail']);
 Route::post('/notifications/password-reset', [NotificationController::class, 'sendPasswordResetEmail']);
-Route::get('/notifications/{userId}', [NotificationController::class, 'getUserNotifications']);
 
 Route::post('/send-verification-code', [NotificationController::class, 'sendVerificationCode']);
 Route::post('/send-password-reset-success', [NotificationController::class, 'sendPasswordResetSuccess']);
 
 Route::post('/send-account-verified-success', [NotificationController::class, 'sendAccountVerifiedSuccess']);
 
-Route::get('/mail', function() {
-     $user = User::first();
+Route::get('/mail', function(Request $request) {
+ 
+    $request->validate([
+        'connection' => 'required|string|in:mysql_sandbox,mysql_prod'
+    ]);
+    $connection = $request->input('connection', 'mysql_sandbox');
+
+     $user = User::on($connection)->first();
      $data = [];
      Mail::to($user->email)
                 ->locale($user->language ?? 'fr')
@@ -57,3 +62,5 @@ Route::prefix('payment-notifications')->group(function () {
     Route::post('/receipt', [NotificationController::class, 'sendPaymentReceipt']);
     Route::get('/history/{userId}', [NotificationController::class, 'getPaymentNotifications']);
 });
+
+Route::post('/merchant-welcome', [NotificationController::class, 'merchantWelcome']);

@@ -26,7 +26,7 @@ class PaymentPending extends Mailable
     public function build()
     {
         return $this->subject(trans('payments.pending.subject', $this->getTranslationParams()))
-                    ->view('emails.payments.pending')
+                    ->view('emails.payments.fr.pending')
                     ->with([
                         'user' => $this->user,
                         'transaction' => $this->transaction

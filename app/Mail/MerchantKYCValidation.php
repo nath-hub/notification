@@ -25,12 +25,12 @@ class MerchantKYCValidation extends Mailable
 
     public function build()
     {
-        $subjectKey = $this->kycStatus === 'approved' 
-            ? 'merchant.kyc_approved.subject' 
+        $subjectKey = $this->kycStatus === 'approved'
+            ? 'merchant.kyc_approved.subject'
             : 'merchant.kyc_rejected.subject';
 
         return $this->subject(trans($subjectKey))
-                    ->view('emails.merchant.kyc_validation')
+                    ->view('emails.merchant.fr.kyc_validation')
                     ->with([
                         'merchant' => $this->merchant,
                         'kycStatus' => $this->kycStatus

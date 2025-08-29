@@ -26,7 +26,7 @@ class PaymentRefund extends Mailable
     public function build()
     {
         return $this->subject(trans('payments.refund.subject', $this->getTranslationParams()))
-                    ->view('emails.payments.refund')
+                    ->view('emails.payments.fr.refund')
                     ->with([
                         'user' => $this->user,
                         'transaction' => $this->transaction

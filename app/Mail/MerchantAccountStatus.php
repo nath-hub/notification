@@ -25,12 +25,12 @@ class MerchantAccountStatus extends Mailable
 
     public function build()
     {
-        $subjectKey = $this->accountStatus === 'approved' 
-            ? 'merchant.account_approved.subject' 
+        $subjectKey = $this->accountStatus === 'approved'
+            ? 'merchant.account_approved.subject'
             : 'merchant.account_rejected.subject';
 
         return $this->subject(trans($subjectKey))
-                    ->view('emails.merchant.account_status')
+                    ->view('emails.merchant.fr.account_status')
                     ->with([
                         'merchant' => $this->merchant,
                         'accountStatus' => $this->accountStatus

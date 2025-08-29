@@ -3,10 +3,7 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class MerchantWelcome extends Mailable
@@ -14,19 +11,24 @@ class MerchantWelcome extends Mailable
     use Queueable, SerializesModels;
 
     public $merchant;
+    public $user;
     public $type = 'merchant_welcome';
 
-    public function __construct($merchant)
+    public function __construct($merchant, $user)
     {
         $this->merchant = $merchant;
+        $this->user = $user;
     }
 
     public function build()
     {
-        return $this->subject(trans('merchant.welcome.subject', ['name' => $this->merchant['business_name']]))
-                    ->view('emails.merchant.welcome')
+        return $this->subject(trans('merchant.welcome.subject', ['name' => $this->merchant]))
+                    ->view('emails.merchant.fr.welcome')
                     ->with([
-                        'merchant' => $this->merchant
+                        'merchant' => $this->merchant,
+                        'nom_entreprise' => $this->merchant,
+                        'contact_name' => $this->user->name,
+                        'contact_email' => $this->user->email
                     ]);
     }
 }

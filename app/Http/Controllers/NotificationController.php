@@ -7,6 +7,7 @@ use App\Http\Services\NotificationService;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class NotificationController extends Controller
 {
@@ -51,10 +52,17 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
         // Créer un user factice pour l'envoi d'email
-        $user = User::find($request->id);
+        $user = User::on($connection)->find($request->id);
 
         $success = $this->notificationService->sendWelcomeEmail($user);
 
@@ -99,9 +107,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['id']);
 
         $success = $this->notificationService->sendPasswordResetEmail($user);
 
@@ -119,11 +134,19 @@ class NotificationController extends Controller
      */
     public function sendVerificationCode(Request $request)
     {
-        $validated = $request->validate([
-            'id' => 'required|string'
+        $request->validate([
+            'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        // Créer un user factice pour l'envoi d'email
+        $user = User::on($connection)->find($request->id);
 
         // Envoyer l'email de vérification
         $success = $this->notificationService->sendEmailVerification($user);
@@ -147,9 +170,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['id']);
 
         // Envoyer l'email de confirmation
         $success = $this->notificationService->sendPasswordResetSuccess($user);
@@ -169,9 +199,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['id']);
 
         // Envoyer l'email de confirmation de vérification
         $success = $this->notificationService->sendAccountVerifiedSuccess($user);
@@ -189,6 +226,8 @@ class NotificationController extends Controller
     }
 
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////payments
+
     /**
      * Envoyer une notification de paiement réussi
      */
@@ -196,9 +235,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['user_id']);
 
         $success = $this->notificationService->sendPaymentSuccess($user, $transactionData);
 
@@ -217,9 +263,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['user_id']);
 
         $success = $this->notificationService->sendPaymentFailed($user, $transactionData);
 
@@ -238,9 +291,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['user_id']);
 
         $success = $this->notificationService->sendPaymentRefund($user, $transactionData);
 
@@ -259,9 +319,16 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['user_id']);
 
         $success = $this->notificationService->sendPaymentPending($user, $transactionData);
 
@@ -280,18 +347,48 @@ class NotificationController extends Controller
     {
         $validated = $request->validate([
             'id' => 'required|string',
+            'environment' => 'required|string|in:prod,sandbox',
         ]);
 
-        $user = User::find($validated['user_id']);
+        if ($request->environment === 'sandbox') {
+            $connection = 'mysql_sandbox';
+        } else {
+            $connection = 'mysql_prod';
+        }
+
+        $user = User::on($connection)->find($validated['user_id']);
 
         $success = $this->notificationService->sendPaymentReceipt($user, $transactionData);
 
         if ($success) {
             return response()->json(['message' => 'Password reset email sent successfully']);
         }
-
         return response()->json(['message' => 'Failed to send password reset email'], 500);
+    }
 
+    ////////////////////////////////////////////////////////////////entreprise//////////////////////////////////////////////
+
+    public function MerchantWelcome(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|string',
+            'data' => 'required|string'
+        ]);
+
+        $user = User::on('mysql_sandbox')->find($validated['id']);
+
+        if(!$user){
+            $user = User::on('mysql_prod')->find($validated['id']);
+        }
+
+        $data = $request->data;
+
+        $success = $this->notificationService->MerchantWelcome($user, $data);
+
+        if ($success) {
+            return response()->json(['message' => 'Password reset email sent successfully']);
+        }
+        return response()->json(['message' => 'Failed to send password reset email'], 500);
     }
 
 }

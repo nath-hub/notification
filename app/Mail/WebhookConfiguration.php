@@ -26,7 +26,7 @@ class WebhookConfiguration extends Mailable
     public function build()
     {
         return $this->subject(trans('webhook.configuration.subject'))
-            ->view('emails.webhook.configuration')
+            ->view('emails.merchant.fr.configuration')
             ->with([
                 'merchant' => $this->merchant,
                 'webhookData' => $this->webhookData

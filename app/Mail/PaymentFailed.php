@@ -26,7 +26,7 @@ class PaymentFailed extends Mailable
     public function build()
     {
         return $this->subject(trans('payments.failed.subject', $this->getTranslationParams()))
-                    ->view('emails.payments.failed')
+                    ->view('emails.payments.fr.failed')
                     ->with([
                         'user' => $this->user,
                         'transaction' => $this->transaction

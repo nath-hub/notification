@@ -114,9 +114,9 @@
         </div>
 
         <div class="success-icon">🎉</div>
-        
+
         <h2>{{ trans('emails.account_verified.subject') }}</h2>
-        
+
         <div class="welcome-box">
             <h3 style="margin: 0; color:#28a745;">
                 {{ trans('emails.account_verified.congratulations', ['name' => $user->name]) }}

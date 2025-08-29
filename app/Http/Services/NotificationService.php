@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Mail\AccountVerifiedSuccess;
 use App\Mail\EmailPasswordResetSuccess;
 use App\Mail\EmailVerification;
+use App\Mail\MerchantWelcome;
 use App\Mail\PasswordReset;
 use App\Mail\PaymentFailed;
 use App\Mail\PaymentPending;
@@ -22,19 +23,17 @@ class NotificationService
 {
     public function sendWelcomeEmail(User $user)
     {
-        try {
+        // try {
             Mail::to($user->email)
                 ->locale($user->language ?? 'fr')
                 ->send(new UserRegistered($user));
 
             return true;
 
-        } catch (\Exception $e) {
-            Log::error('Welcome email failed: ' . $e->getMessage());
-
-
-            return false;
-        }
+        // } catch (\Exception $e) {
+        //     Log::error('Welcome email failed: ' . $e->getMessage());
+        //     return false;
+        // }
     }
 
     public function sendPasswordResetEmail(User $user)
@@ -42,7 +41,7 @@ class NotificationService
         try {
             Mail::to($user->email)
                 ->locale($user->language ?? 'fr')
-                ->send(new PasswordReset($user));
+                ->send(new PasswordReset($user, $user->verification_code));
 
 
             return true;
@@ -57,7 +56,6 @@ class NotificationService
     public function sendEmailVerification($user)
     {
         try {
-            Log::info('Sending email verification to user: ' . $user->verification_code);
             Mail::to($user->email)
                 ->locale($user->language ?? 'fr')
                 ->send(new EmailVerification($user, $user->verification_code));
@@ -116,8 +114,6 @@ class NotificationService
             return true;
 
         } catch (\Exception $e) {
-
-
             return false;
         }
     }
@@ -203,4 +199,18 @@ class NotificationService
 
     }
 
+    public function merchantWelcome($merchant, $transactionData)
+    {
+        try {
+            Mail::to($merchant['email'])
+                ->locale($merchant['language'] ?? 'fr')
+                ->send(new MerchantWelcome($transactionData, $merchant));
+
+            return true;
+
+        } catch (\Exception $e) {
+
+            return false;
+        }
+    }
 }
