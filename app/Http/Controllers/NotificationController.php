@@ -253,7 +253,6 @@ class NotificationController extends Controller
         }
 
         return response()->json(['message' => 'Failed to send password reset email'], 500);
-
     }
 
     /**
@@ -281,7 +280,6 @@ class NotificationController extends Controller
         }
 
         return response()->json(['message' => 'Failed to send password reset email'], 500);
-
     }
 
     /**
@@ -309,7 +307,6 @@ class NotificationController extends Controller
         }
 
         return response()->json(['message' => 'Failed to send password reset email'], 500);
-
     }
 
     /**
@@ -337,7 +334,6 @@ class NotificationController extends Controller
         }
 
         return response()->json(['message' => 'Failed to send password reset email'], 500);
-
     }
 
     /**
@@ -377,7 +373,7 @@ class NotificationController extends Controller
 
         $user = User::on('mysql_sandbox')->find($validated['id']);
 
-        if(!$user){
+        if (!$user) {
             $user = User::on('mysql_prod')->find($validated['id']);
         }
 
@@ -391,4 +387,27 @@ class NotificationController extends Controller
         return response()->json(['message' => 'Failed to send password reset email'], 500);
     }
 
+
+    public function MerchantKYCValidation(Request $request)
+    {
+        $validated = $request->validate([
+            'id' => 'required|string',
+            'data' => 'required|array'
+        ]);
+
+        $user = User::on('mysql_sandbox')->find($validated['id']);
+
+        if (!$user) {
+            $user = User::on('mysql_prod')->find($validated['id']);
+        }
+
+        $data = $request->data;
+// return $data[0]['nom_entreprise'];
+        $success = $this->notificationService->MerchantKYCValidation($user, $data);
+
+        if ($success) {
+            return response()->json(['message' => 'Password reset email sent successfully']);
+        }
+        return response()->json(['message' => 'Failed to send password reset email'], 500);
+    }
 }

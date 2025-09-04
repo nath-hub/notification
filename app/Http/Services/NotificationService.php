@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Mail\AccountVerifiedSuccess;
 use App\Mail\EmailPasswordResetSuccess;
 use App\Mail\EmailVerification;
+use App\Mail\MerchantKYCValidation;
 use App\Mail\MerchantWelcome;
 use App\Mail\PasswordReset;
 use App\Mail\PaymentFailed;
@@ -24,11 +25,11 @@ class NotificationService
     public function sendWelcomeEmail(User $user)
     {
         // try {
-            Mail::to($user->email)
-                ->locale($user->language ?? 'fr')
-                ->send(new UserRegistered($user));
+        Mail::to($user->email)
+            ->locale($user->language ?? 'fr')
+            ->send(new UserRegistered($user));
 
-            return true;
+        return true;
 
         // } catch (\Exception $e) {
         //     Log::error('Welcome email failed: ' . $e->getMessage());
@@ -45,7 +46,6 @@ class NotificationService
 
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
@@ -61,7 +61,6 @@ class NotificationService
                 ->send(new EmailVerification($user, $user->verification_code));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
@@ -86,7 +85,6 @@ class NotificationService
                 ->send(new EmailPasswordResetSuccess($user, $date, $time));
 
             return true;
-
         } catch (\Exception $e) {
 
 
@@ -112,7 +110,6 @@ class NotificationService
                 ->send(new AccountVerifiedSuccess($user, $date, $time));
 
             return true;
-
         } catch (\Exception $e) {
             return false;
         }
@@ -127,12 +124,10 @@ class NotificationService
                 ->send(new PaymentSuccess($user, $transactionData));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
         }
-
     }
 
     public function sendPaymentFailed($user, $transactionData)
@@ -143,12 +138,10 @@ class NotificationService
                 ->send(new PaymentFailed($user, $transactionData));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
         }
-
     }
 
     public function sendPaymentRefund($user, $transactionData)
@@ -159,12 +152,10 @@ class NotificationService
                 ->send(new PaymentRefund($user, $transactionData));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
         }
-
     }
 
     public function sendPaymentPending($user, $transactionData)
@@ -175,12 +166,10 @@ class NotificationService
                 ->send(new PaymentPending($user, $transactionData));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
         }
-
     }
 
     public function sendPaymentReceipt($user, $transactionData)
@@ -191,12 +180,10 @@ class NotificationService
                 ->send(new PaymentReceipt($user, $transactionData));
 
             return true;
-
         } catch (\Exception $e) {
 
             return false;
         }
-
     }
 
     public function merchantWelcome($merchant, $transactionData)
@@ -207,7 +194,20 @@ class NotificationService
                 ->send(new MerchantWelcome($transactionData, $merchant));
 
             return true;
+        } catch (\Exception $e) {
 
+            return false;
+        }
+    }
+
+    public function merchantKYCValidation($merchant, $transactionData)
+    {
+        try {
+            Mail::to($merchant['email'])
+                ->locale($merchant['language'] ?? 'fr')
+                ->send(new MerchantKYCValidation($merchant, $transactionData));
+
+            return true;
         } catch (\Exception $e) {
 
             return false;

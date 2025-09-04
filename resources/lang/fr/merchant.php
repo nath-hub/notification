@@ -49,7 +49,7 @@ return [
         'subject' => 'Statut de votre vérification KYC : Rejetée',
         'message' => 'Nous avons examiné les documents que vous avez soumis pour la vérification de votre compte. Malheureusement, votre demande a été rejetée.',
         'reason' => 'Raison du rejet',
-        'default_reason' => 'Les documents soumis ne correspondent pas à nos critères de vérification.',
+        'default_reason' => 'Les documents soumis ne correspondent pas à nos critères de vérification. Plus exactement :motif_statut',
         'instructions' => 'Veuillez soumettre à nouveau vos documents en suivant les instructions de notre guide de vérification. Si vous pensez qu\'il s\'agit d\'une erreur, n\'hésitez pas à contacter notre équipe support pour obtenir de l\'aide.',
     ],
 
