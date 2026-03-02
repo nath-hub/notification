@@ -13,14 +13,14 @@ return new class extends Migration
     {
         Schema::create('webhooks', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            $table->string('private_key')->primary();
+            $table->string('private_key')->unique();
             $table->string('url'); // URL de destination du webhook
             $table->string('event_type'); // Type d'événement (ex: user.created, order.updated)
             $table->string('secret'); // Clé secrète pour signer les webhooks
             $table->boolean('is_active')->default(true); // Statut actif/inactif
             $table->integer('max_attempts')->default(3); // Nombre max de tentatives
             $table->timestamps();
-            
+
             // Index pour les recherches par type d'événement
             $table->index('event_type');
             $table->index('is_active');

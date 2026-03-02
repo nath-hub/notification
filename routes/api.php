@@ -65,3 +65,4 @@ Route::prefix('payment-notifications')->group(function () {
 
 Route::post('/merchant-welcome', [NotificationController::class, 'merchantWelcome']);
 Route::post('/merchant-kyc-validation', [NotificationController::class, 'merchantKYCValidation']);
+Route::post('/merchant-activated', [NotificationController::class, 'merchantActivated']);

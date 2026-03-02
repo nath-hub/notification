@@ -213,4 +213,18 @@ class NotificationService
             return false;
         }
     }
+
+    public function merchantActivated($merchant, $transactionData)
+    {
+        try {
+            Mail::to($merchant['email'])
+                ->locale($merchant['language'] ?? 'fr')
+                ->send(new MerchantAccountStatus($merchant, $transactionData));
+
+            return true;
+        } catch (\Exception $e) {
+
+            return false;
+        }
+    }   
 }
